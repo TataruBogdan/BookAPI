@@ -11,6 +11,9 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 
 @Configuration
@@ -35,6 +38,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
+                .cors(cors -> cors.configurationSource(request ->
+                            {
+                                CorsConfiguration corsConfiguration= new CorsConfiguration();
+                                corsConfiguration.setAllowedOrigins(List.of("*"));
+                                corsConfiguration.setAllowedMethods(List.of("*"));
+                                corsConfiguration.setAllowedHeaders(List.of("*"));
+                                return corsConfiguration;
+                            }
+                        ))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS).permitAll())
                 .authorizeHttpRequests(auth -> auth.requestMatchers(

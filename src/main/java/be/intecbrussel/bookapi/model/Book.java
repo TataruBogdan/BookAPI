@@ -2,13 +2,12 @@ package be.intecbrussel.bookapi.model;
 
 import jakarta.persistence.*;
 
-import java.util.Random;
-
 @Entity(name = "book_tb")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String isbn;
     private String imgURL;
     private String title;
     private String author;
@@ -18,7 +17,8 @@ public class Book {
     private String releaseDate;
     private boolean available = true;
     private boolean popularBook;
-    public Book(String imgURL, String title, String author, String genres, String description, String releaseDate) {
+    public Book(String isbn, String imgURL, String title, String author, String genres, String description, String releaseDate) {
+        this.isbn = isbn;
         this.imgURL = imgURL;
         this.title = title;
         this.author = author;
@@ -98,10 +98,19 @@ public class Book {
         this.available = available;
     }
 
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
+                ", isbn='" + isbn + '\'' +
                 ", imgURL='" + imgURL + '\'' +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +

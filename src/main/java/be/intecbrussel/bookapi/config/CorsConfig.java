@@ -26,4 +26,20 @@ public class CorsConfig {
 
         return new CorsFilter(source);
     }
+
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/api/**")
+//                        .allowedOrigins("http://localhost:4200")
+//                        .allowedMethods("PUT", "DELETE", "POST", "GET", "OPTIONS")
+//                        .allowedHeaders("*")
+//                        .allowCredentials(false)
+//                        .maxAge(86400);
+//            }
+//        };
+//    }
+
 }

@@ -77,6 +77,7 @@ public class AuthService {
         }
 
         String token = jwtUtil.createToken(user, role);
+        System.out.println("THIS IS THE BUILDTOKEN " + token);
         LoginResponse loginResponse = new LoginResponse(email, token, role);
 
         return Optional.of(loginResponse);
