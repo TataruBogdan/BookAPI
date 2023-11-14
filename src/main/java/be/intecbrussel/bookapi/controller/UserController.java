@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -19,6 +20,17 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity getAllUser() {
+        Optional<List<AuthUser>> allUsers = userService.findAllUsers();
+
+        if(allUsers.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        List<AuthUser> users = allUsers.get();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/get")

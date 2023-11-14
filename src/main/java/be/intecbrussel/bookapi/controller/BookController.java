@@ -74,9 +74,8 @@ public class BookController {
         Optional<Book> optionalBook = bookService.addBook(book);
 
         if (optionalBook.isEmpty()) {
-            return ResponseEntity.unprocessableEntity().build();
+            return ResponseEntity.unprocessableEntity().build(); // what is unprocessableEntity() ???
         }
-
         Book addedBook = optionalBook.get();
 
         return ResponseEntity.ok(addedBook);
@@ -96,6 +95,7 @@ public class BookController {
 
     @PatchMapping("/adm/update")
     //@PreAuthorize("hasAnyAuthority('ADMIN')")
+    // changed to return a Book back
     public ResponseEntity updateBook(@RequestParam Long id, @RequestBody Book book) {
         Optional<Book> optionalBook = bookService.update(id, book);
 
@@ -103,7 +103,7 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(optionalBook.get());
     }
 
     @DeleteMapping("/adm/delete")
